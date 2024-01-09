@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Calcolo Media Voti</title>
+    <script src="js/db.js"></script>
+</head>
+<body>
+
+    <h2>Media dei Voti</h2>
+
+    <!-- Qui verrà visualizzata la media dei voti -->
+    <div id="mediaContainer"></div>
+
+    <!-- Pulsante per tornare alla pagina di inserimento dei voti -->
+    <button onclick="navigateToInsertPage()">Inserisci Voti</button>
+
+    <script>
+        // Funzione per navigare alla pagina di inserimento dei voti
+        function navigateToInsertPage() {
+            window.location.href = "inserimento.html";
+        }
+
+        // Funzione per visualizzare la media dei voti
+        function showMedia() {
+            // Recupera la media dei voti salvata
+            var mediaKey = "mediaKey";
+            leggiDati(mediaKey, function(result) {
+                var mediaContainer = document.getElementById("mediaContainer");
+                var media = result ? result.media.toFixed(2) : "Nessun voto";
+                mediaContainer.innerHTML = "Media: " + media;
+            });
+        }
+
+        // Chiama la funzione al caricamento della pagina
+        document.addEventListener("DOMContentLoaded", function () {
+            showMedia();
+        });
+    </script>
+
+</body>
+</html>

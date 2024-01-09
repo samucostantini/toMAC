@@ -1,0 +1,45 @@
+!DOCTYPE html>
+<html>
+<head>
+   
+    <title>Spese App</title>
+    <script src="js/db.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="js/mychart.js"></script>
+    <script src="js/uimanage.js"></script>
+    <link rel="stylesheet" href="css/mtbutton.css">
+    
+
+</head>
+<body>
+    
+    <h1>Inserisci Spesa</h1>
+    <label for="amount">Importo:</label>
+    <input type="number" id="amount">
+    <br>
+    <label for="category">Categoria di Spesa:</label>
+    <select id="category">
+        <option value="Other">Altro</option>
+        <option value="Bills">Bills</option>
+        <option value="Hobby">Hobby</option>
+        <option value="Fuel">Fuel</option>
+        <option value="Food and Beverage">Food and Beverage</option>
+        <option value="Shopping">Shopping</option>
+        <!-- Aggiungi altre opzioni qui -->
+    </select>
+    <br>
+    <label for="date_p">Date:</label>
+    <input type="date" id="date_p" name="date_p" required>
+    <br>
+    <label for="comment_p">Comment:</label>
+    <input type="text" id="comment_p" name="comment_p">
+    
+
+    <br>
+    <button class="button-85" role="button" onclick="inserisciSpesa()">Inserisci Spesa</button>
+
+   
+    
+
+</body>
+</html>
