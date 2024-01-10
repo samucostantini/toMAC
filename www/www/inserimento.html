@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Inserimento Voti</title>
+    <script src="js/db.js"></script>
+    <style>
+
+        
+    </style>
+
+</head>
+<body>
+
+    <h2>Inserimento Voti</h2>
+
+    <!-- Modulo per inserire voto e crediti -->
+    <form id="votiForm">
+        <label for="voto">Voto:</label>
+        <input type="number" id="voto" name="voto" required>
+
+        <label for="crediti">Crediti:</label>
+        <input type="number" id="crediti" name="crediti" required>
+
+        <button type="button" onclick="salvaVoti()">Salva Voti</button>
+    </form>
+
+    <script>
+        // Funzione per salvare i voti e i crediti
+        function salvaVoti() {
+            // Recupera i dati dal modulo
+            var voto = document.getElementById("voto").value;
+            var crediti = document.getElementById("crediti").value;
+
+            // Apri la connessione a IndexedDB
+            var request = indexedDB.open("VotiDB", 1);
+
+            // Se IndexedDB non è supportato
+            request.onerror = function(event) {
+                console.error("IndexedDB non è supportato");
+                window.location.href = "pp.html";
+            };
+
+            // Se IndexedDB è supportato
+            request.onsuccess = function(event) {
+                var db = event.target.result;
+
+                // Apri la transazione per scrivere i voti
+                var transaction = db.transaction(["Media"], "readwrite");
+                var objectStore = transaction.objectStore("Media");
+
+                // Aggiorna la media in base ai nuovi voti
+                var request = objectStore.get("mediaKey");
+                request.onsuccess = function(event) {
+                    var result = event.target.result;
+                    var mediaPrecedente = result ? result.media : 0;
+
+                    // Calcola la nuova media
+                    var nuovaMedia = ((mediaPrecedente * result.numVoti) + parseInt(voto)) / (result.numVoti + 1);
+
+                    // Aggiorna l'oggetto nel database
+                    objectStore.put({ key: "mediaKey", media: nuovaMedia, numVoti: result.numVoti + 1 });
+
+                    // Torna alla pagina di visualizzazione della media
+                    window.location.href = "media.html";
+                };
+
+                // Chiusura della transazione
+                transaction.oncomplete = function(event) {
+                    db.close();
+                };
+            };
+        }
+    </script>
+
+</body>
+</html>

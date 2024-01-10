@@ -1,0 +1,15 @@
+.container {
+  /* Basic dimensions and centering */
+
+  
+  margin-left: 20px;
+  margin-right: 20px;
+  height: 300px;
+  display: flex;
+  align-items: center; /* Centra verticalmente */
+  justify-content: center;
+  /* Dark mode colors and gradient */
+  background: #c4dde5; /* Fallback for browsers that don't support gradients */
+  
+}
+

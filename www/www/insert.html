@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+   
+    <title>Spese App</title>
+    <script src="js/db.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="js/mychart.js"></script>
+    <script src="js/uimanage.js"></script>
+    <link rel="stylesheet" href="css/mtbutton.css">
+    <link rel="stylesheet" href="css/paymform.css">
+
+    <style>
+        
+    body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #3a9dd9;
+    background: -webkit-linear-gradient(167deg, #3a9dd9 0%, #8738d5 100%);
+    background: linear-gradient(167deg, #3a9dd9 0%, #8738d5 100%);
+    height: 100vh; /* Imposta l'altezza del body a 100% della viewport height */
+    margin: 0; /* Rimuovi il margine predefinito del body */
+
+    }
+
+
+    </style>
+    
+
+</head>
+<body>
+    
+    <form class="form">
+        <p class="title">Insert Payment</p>
+        <div class="flex">
+        <label for="amount">
+            <input class="input" type="number" id="amount" placeholder="" required="">
+            <span>Amount</span>
+        </label>
+        <br>
+    
+        <label for="category" style="margin-left: 10px;">
+            <select id="category" class="input">
+                <option value="Other">Other</option>
+                <option value="Bills">Bills</option>
+                <option value="Hobby">Hobby</option>
+                <option value="Fuel">Fuel</option>
+                <option value="Food and Beverage">Food and Beverage</option>
+                <option value="Shopping">Shopping</option>
+                <!-- Aggiungi altre opzioni qui -->
+            </select>
+            <span>Category</span>
+        </label>
+        </div>
+    
+        <label>
+            <input class="input" type="date" id="date_p" name="date_p" required>
+            <span>Date</span>
+        </label>
+    
+        <label>
+            <input class="input" type="text" id="comment_p" name="comment_p">
+            <span>Comment</span>
+        </label>
+    
+        <button class="submit"  onclick="inserisciSpesa()">Submit</button>
+       
+    </form>
+
+
+
+
+   
+    
+
+</body>
+</html>

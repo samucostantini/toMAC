@@ -1,0 +1,158 @@
+<!-- www/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spese App</title>
+    <script src="js/db.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="js/mychart.js"></script>
+    <script src="js/uimanage.js"></script>
+    <link rel="stylesheet" href="css/mtbutton.css">
+    <link rel="stylesheet" href="css/checkbox.css">
+    <link rel="stylesheet" href="css/pattern.css">
+    <link rel="stylesheet" href="css/tableM.css">
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+    
+        body {
+            background: #3a9dd9;
+            background: -webkit-linear-gradient(0deg, #3a9dd9 0%, #8738d5 50%, #3a9dd9 100%);
+            background: linear-gradient(0deg, #3a9dd9 0%, #8738d5 50%, #3a9dd9 100%);
+        }
+        main{
+            margin-top: 50px;
+        }
+    </style>
+</head>
+<body>
+    
+    <header>
+        
+    </header>
+
+    <main>
+        <button class="cta" onclick="to_insert_page()">
+            <span>New Payment</span>
+            <svg width="15px" height="10px" viewBox="0 0 13 10">
+              <path d="M1,5 L11,5"></path>
+              <polyline points="8 1 12 5 8 9"></polyline>
+            </svg>
+          </button>
+
+        <script>
+            function to_insert_page() {
+                // Reindirizza l'utente alla pagina di inserimento
+                window.location.href = 'insert.html';
+            }
+        </script>
+
+        
+
+        
+        <section id="speseSection">
+            <button class="cta" onclick="to_all_payment()">
+                <span>View all Payment</span>
+                <svg width="15px" height="10px" viewBox="0 0 13 10">
+                  <path d="M1,5 L11,5"></path>
+                  <polyline points="8 1 12 5 8 9"></polyline>
+                </svg>
+              </button>
+           
+        </section>
+        <script>
+            function to_all_payment() {
+                // Reindirizza l'utente alla pagina di inserimento
+                window.location.href = 'allPayment.html';
+            }
+        </script>
+
+       
+    </main>
+
+    <div class="customCheckBoxHolder">
+
+        <input class="customCheckBoxInput" id="cCB1" type="checkbox" onchange="mostraGrafico()">
+        <label class="customCheckBoxWrapper" for="cCB1">
+            <div class="customCheckBox">
+                <div class="inner">Pie chart</div>
+            </div>
+        </label>
+    
+        <input class="customCheckBoxInput" id="cCB2" type="checkbox" onchange="mostraGrafico2()">
+        <label class="customCheckBoxWrapper" for="cCB2">
+            <div class="customCheckBox">
+                <div class="inner">Bar chart</div>
+            </div>
+        </label>
+    
+        <input class="customCheckBoxInput" id="cCB3" type="checkbox"onchange="mostraGrafico3()">
+        <label class="customCheckBoxWrapper" for="cCB3">
+            <div class="customCheckBox">
+                <div class="inner">Option</div>
+            </div>
+        </label>
+    
+    </div>
+    
+    <div class="container">
+        <canvas id="myPieChart" width="200px" ></canvas>
+    </div>
+
+
+    <button class="cta" onclick="latest3payment(3)" style=" margin-top: 10px; margin-bottom:30px">
+        <span>View latest Payment</span>
+        <svg width="15px" height="10px" viewBox="0 0 13 10">
+          <path d="M1,5 L11,5"></path>
+          <polyline points="8 1 12 5 8 9"></polyline>
+        </svg>
+      </button>
+     
+   
+        
+        <table id="ltpayment">
+            <thead>
+                <tr>
+                    <th>Amount</th>
+                    <th>Category</th>
+                    <th>Date</th>
+                    <th>Comment</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+               
+            </tbody>
+        </table>
+        
+    
+
+
+
+
+
+   
+    
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            initDatabase();
+           
+        });
+    </script>
+
+
+
+</body>
+<footer style="margin-top:20px; position: fixed; bottom: 0; left: 0; width: 100%; background-color: rgb(111, 218, 125); padding: 10px; text-align: center;">
+    <!-- Barra di navigazione in basso -->
+    <a href="#">Home</a> |
+    <a href="allPayment.html">Latest payment</a> |
+    <a href="#">Contact</a>
+</footer>
+</html>
