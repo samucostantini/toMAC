@@ -1,0 +1,89 @@
+<!-- www/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spese App</title>
+    <script src="js/db.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="js/mychart.js"></script>
+    <script src="js/uimanage.js"></script>
+    <link rel="stylesheet" href="css/mtbutton.css">
+    <link rel="stylesheet" href="css/checkbox.css">
+    <link rel="stylesheet" href="css/pattern.css">
+    <link rel="stylesheet" href="css/tableM.css">
+    <link rel="stylesheet" href="css/index.css">
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+    
+        body {
+            background: #3a9dd9;
+            background: -webkit-linear-gradient(167deg, #3a9dd9 0%, #8738d5 100%);
+            background: linear-gradient(167deg, #3a9dd9 0%, #8738d5 100%);
+        }
+        main{
+            margin-top: 50px;
+        }
+    </style>
+    
+      <form action="#" method="post" id="chartForm" style="margin-top: 10px;">
+        <label for="startDate">Init date:</label>
+        <input type="date" id="startDate" name="startDate" required> <br>
+
+        <label for="endDate">end date:</label>
+        <input type="date" id="endDate" name="endDate" required><br>
+
+        <label for="chartType">chart type</label>
+        <select id="chartType" name="chartType">
+            <option value="1">pie chart</option>
+            <option value="2">bar chart</option>
+            <option value="3">polar chart</option>
+            
+            <!-- Aggiungi altri tipi di grafici se necessario -->
+        </select>
+
+        <button type="button" onclick="generateChart()">show chart</button>
+    </form>
+    
+    
+    
+    <div class="container">
+        <canvas id="myPieChart" width="200px" ></canvas>
+    </div>
+
+    
+
+    
+
+    <script>
+        function generateChart() {
+            // Ottieni i valori delle date e del tipo di grafico
+            var startDate = document.getElementById("startDate").value;
+            var endDate = document.getElementById("endDate").value;
+            var chartType = document.getElementById("chartType").value;
+    
+            
+            generate(startDate, endDate, chartType);
+        }
+    </script>
+
+    
+
+
+    
+
+
+
+
+</head>
+<body>
+
+
+
+</body>
+</html>

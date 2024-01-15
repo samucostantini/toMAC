@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mappa Spese</title>
+    <!-- Includi Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <style>
+        #map {
+            height: 400px;
+        }
+        body {
+            
+            background: #3a9dd9;
+            background: -webkit-linear-gradient(167deg, #3a9dd9 0%, #8738d5 100%);
+            background: linear-gradient(167deg, #3a9dd9 0%, #8738d5 100%);
+            height: 100vh; /* Imposta l'altezza del body a 100% della viewport height */
+            margin: 0; /* Rimuovi il margine predefinito del body */
+        
+            }
+    </style>
+    
+    <script src="js/db.js"></script>
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+</head>
+<body>
+
+<!-- Mappa -->
+<div id="map"></div>
+<div id="coordinates"></div>
+
+<button onclick="initMap()">show payment marker</button>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        initDatabase();
+    });
+
+    function initMap() {
+        var map = L.map('map').setView([0, 0], 2);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap contributors'
+        }).addTo(map);
+
+        visualizzaMarkerDaDatabase(map);
+    }
+
+    function visualizzaMarkerDaDatabase(map) {
+        var transaction = db.transaction(["spese"], "readonly");
+        var objectStore = transaction.objectStore("spese");
+    
+        var cursorRequest = objectStore.openCursor();
+    
+        cursorRequest.onsuccess = function(event) {
+            var cursor = event.target.result;
+    
+            if (cursor) {
+                var latitudine2 = parseFloat(cursor.value.latitude);
+                var longitudine2 = parseFloat(cursor.value.longitude);
+                console.log(latitudine2);
+    
+                // Check if latitudine2 and longitudine2 are valid numbers
+                if (!isNaN(latitudine2) && !isNaN(longitudine2)) {
+                    var marker = L.marker([latitudine2, longitudine2]).addTo(map);
+    
+                    marker.on('mouseover', function(e) {
+                        updateCoordinates(latitudine2, longitudine2);
+                    });
+                } else {
+                    console.error("Invalid latitude or longitude value:", cursor.value);
+                }
+    
+                cursor.continue();
+            }
+        };
+    
+        cursorRequest.onerror = function(event) {
+            console.error("Error opening cursor:", event.target.error);
+        };
+    }
+
+    function updateCoordinates(latitudine, longitudine) {
+        var coordinatesDiv = document.getElementById('coordinates');
+        coordinatesDiv.innerHTML = 'Latitudine: ' + latitudine + ', Longitudine: ' + longitudine;
+    }
+</script>

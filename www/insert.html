@@ -1,42 +1,144 @@
-!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
    
     <title>Spese App</title>
     <script src="js/db.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="js/mychart.js"></script>
+    
+    
     <script src="js/uimanage.js"></script>
     <link rel="stylesheet" href="css/mtbutton.css">
+    <link rel="stylesheet" href="css/paymform.css">
+
+    <style>
+        
+    body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #3a9dd9;
+    background: -webkit-linear-gradient(167deg, #3a9dd9 0%, #8738d5 100%);
+    background: linear-gradient(167deg, #3a9dd9 0%, #8738d5 100%);
+    height: 100vh; /* Imposta l'altezza del body a 100% della viewport height */
+    margin: 0; /* Rimuovi il margine predefinito del body */
+
+    }
+
+
+    </style>
     
 
 </head>
 <body>
     
-    <h1>Inserisci Spesa</h1>
-    <label for="amount">Importo:</label>
-    <input type="number" id="amount">
-    <br>
-    <label for="category">Categoria di Spesa:</label>
-    <select id="category">
-        <option value="Other">Altro</option>
-        <option value="Bills">Bills</option>
-        <option value="Hobby">Hobby</option>
-        <option value="Fuel">Fuel</option>
-        <option value="Food and Beverage">Food and Beverage</option>
-        <option value="Shopping">Shopping</option>
-        <!-- Aggiungi altre opzioni qui -->
-    </select>
-    <br>
-    <label for="date_p">Date:</label>
-    <input type="date" id="date_p" name="date_p" required>
-    <br>
-    <label for="comment_p">Comment:</label>
-    <input type="text" id="comment_p" name="comment_p">
+    <form class="form">
+        <p class="title">Insert Payment</p>
+        <div class="flex">
+        <label for="amount">
+            <input class="input" type="number" id="amount" placeholder="" required="">
+            <span>Amount</span>
+        </label>
+        <br>
+    
+        <label for="category" style="margin-left: 10px;">
+            <select id="category" class="input">
+                <option value="Other">Other</option>
+                <option value="Bills">Bills</option>
+                <option value="Hobby">Hobby</option>
+                <option value="Fuel">Fuel</option>
+                <option value="Food and Beverage">Food and Beverage</option>
+                <option value="Shopping">Shopping</option>
+                <!-- Aggiungi altre opzioni qui -->
+            </select>
+            <span>Category</span>
+        </label>
+        </div>
+    
+        <label>
+            <input class="input" type="date" id="date_p" name="date_p" required>
+            <span>Date</span>
+        </label>
+    
+        <label>
+            <input class="input" type="text" id="comment_p" name="comment_p">
+            <span>Comment</span>
+        </label>
+        <label>
+            Include Geolocation
+            <input type="checkbox" id="includeGeolocation" />
+        </label>
+    
+        <button class="submit"  onclick="inserisciSpesaS()">Submit</button>
+       
+    </form>
+
+    
+    <script>
+        let latitudine;
+        let longitudine;
+        document.addEventListener("DOMContentLoaded", function() {
+            navigator.geolocation.getCurrentPosition(
+                function (position) {
+                    latitudine = position.coords.latitude;
+                    longitudine = position.coords.longitude;});
+                    console.log(latitudine+" "+longitudine);
+           
+        });
+        
+
+ 
+
+        document.getElementById('includeGeolocation').addEventListener('change', function () {
+            if (this.checked) {
+                navigator.geolocation.getCurrentPosition(
+                    function (position) {
+                        latitudine = position.coords.latitude;
+                        longitudine = position.coords.longitude;});
+                        console.log(latitudine+" "+longitudine);
+                
+            } else {
+               
+            }
+        });
+        
+        function inserisciSpesaS() {
+            var amount = document.getElementById('amount').value;
+            var category = document.getElementById('category').value;
+            var date_p = document.getElementById('date_p').value;
+            var comment_p = document.getElementById('comment_p').value;
+            console.log("ok");
+    
+            if (document.getElementById('includeGeolocation').checked) {
+                // Include geolocation
+                if(latitudine && longitudine){
+                    console.log("perfetto");
+                    inserisciSpesaDB(amount, category, date_p, comment_p, latitudine, longitudine);}
+                else{    
+                navigator.geolocation.getCurrentPosition(
+                    function (position) {
+                        var latitudine = position.coords.latitude;
+                        var longitudine = position.coords.longitude;
+    
+                        alert("Latitude: " + latitudine + "\nLongitude: " + longitudine);
+    
+                        // Call the function in db.js to insert the expense into the database
+                        inserisciSpesaDB(amount, category, date_p, comment_p, latitudine, longitudine);
+                    },
+                    function (error) {
+                        console.error('Error in geolocation:', error.message);
+                        alert('Error getting geolocation. Please try again.');
+                    }
+                );}}
+            else {
+                // Do not include geolocation
+                inserisciSpesaDB(amount, category, date_p, comment_p, 0, 0);
+            }
+        }
+        
+    </script>
+
     
 
-    <br>
-    <button class="button-85" role="button" onclick="inserisciSpesa()">Inserisci Spesa</button>
 
    
     

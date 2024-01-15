@@ -1,0 +1,103 @@
+<!-- www/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spese App</title>
+    <script src="js/db.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="js/mychart.js"></script>
+    <script src="js/uimanage.js"></script>
+    <link rel="stylesheet" href="css/mtbutton.css">
+    <link rel="stylesheet" href="css/checkbox.css">
+    <link rel="stylesheet" href="css/pattern.css">
+    <link rel="stylesheet" href="css/tableM.css">
+    
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+    
+        body {
+            background: #3a9dd9;
+            background: -webkit-linear-gradient(167deg, #3a9dd9 0%, #8738d5 100%);
+            background: linear-gradient(167deg, #3a9dd9 0%, #8738d5 100%);
+        }
+        main{
+            margin-top: 50px;
+        }
+    </style>
+</head>
+<body>
+
+  <div style="margin-left:10px; margin-top:10px">
+    <label>Get Data</label>
+    <select name="order_by" onchange="handleSelection(this)">
+      <option value="latest3payment">Latest insert Payments</option>
+      <option value="paymentOrderByAmountASC">Amount ASC</option>
+      <option value="paymentOrderByAmountDESC">Amount DESC</option>
+      <option value="paymentOrderByDateASC">Oldest Payments</option>
+      <option value="paymentOrderByDateDESC">Latest Payments</option>
+    </select>
+    <button onclick="executeSelection()">Go</button>
+  </div>
+  
+  <script>
+    function handleSelection(select) {
+      // Puoi eseguire azioni specifiche in base alla selezione, se necessario
+    }
+  
+    function executeSelection() {
+      var selectedOption = document.querySelector('[name="order_by"]').value;
+  
+      // Esegui l'azione associata all'opzione selezionata
+      switch (selectedOption) {
+        case "latest3payment":
+          latest3payment(1);
+          break;
+        case "paymentOrderByAmountASC":
+          paymentOrderByAmountASC();
+          break;
+        case "paymentOrderByAmountDESC":
+          paymentOrderByAmountDESC();
+          break;
+        case "paymentOrderByDateASC":
+          paymentOrderByDateASC();
+          break;
+        case "paymentOrderByDateDESC":
+          paymentOrderByDateDESC();
+          break;
+        default:
+          // Azione predefinita
+          break;
+      }
+    }
+  </script>
+
+   
+        
+        <table id="ltpayment" style="margin-right: 5px; margin-left:5px">
+            <thead>
+                <tr>
+                    <th>Amount</th>
+                    <th>Category</th>
+                    <th>Date</th>
+                    <th>Comment</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+               
+            </tbody>
+        </table>
+
+        
+    
+        
+  
+
+</body>
+</html>

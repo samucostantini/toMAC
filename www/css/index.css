@@ -113,5 +113,5 @@ h1 {
     width: 100px;  /* Imposta la larghezza massima al 100% del contenitore genitore */
     height: auto;     /* Altezza automatica per mantenere l'aspetto proporzionato */
     display: block;   /* Assicura che sia un elemento di tipo blocco */
-    margin: 20px auto; /* Aggiungi margini per uno spaziamento adeguato, con margin:auto centrerà l'elemento */
+     /* Aggiungi margini per uno spaziamento adeguato, con margin:auto centrerà l'elemento */
 }

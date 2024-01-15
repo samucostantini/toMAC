@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="css/mtbutton.css">
     <link rel="stylesheet" href="css/checkbox.css">
     <link rel="stylesheet" href="css/pattern.css">
+    <link rel="stylesheet" href="css/tableM.css">
     <style>
         html, body {
             height: 100%;
@@ -21,15 +22,18 @@
     
         body {
             background: #3a9dd9;
-            background: -webkit-linear-gradient(167deg, #3a9dd9 0%, #8738d5 100%);
-            background: linear-gradient(167deg, #3a9dd9 0%, #8738d5 100%);
+            background: -webkit-linear-gradient(0deg, #3a9dd9 0%, #8738d5 50%, #3a9dd9 100%);
+            background: linear-gradient(0deg, #3a9dd9 0%, #8738d5 50%, #3a9dd9 100%);
+        }
+        main{
+            margin-top: 50px;
         }
     </style>
 </head>
 <body>
     
     <header>
-        <h1>Manage your money</h1>
+        
     </header>
 
     <main>
@@ -52,15 +56,60 @@
 
         
         <section id="speseSection">
-            <button class="cta" onclick="visualizzaSpese2()">
-                <span>View Payment</span>
+            <button class="cta" onclick="to_all_payment()">
+                <span>All Payment</span>
                 <svg width="15px" height="10px" viewBox="0 0 13 10">
                   <path d="M1,5 L11,5"></path>
                   <polyline points="8 1 12 5 8 9"></polyline>
                 </svg>
               </button>
-            <ul id="expensesList"></ul>
+           
         </section>
+        <script>
+            function to_all_payment() {
+                // Reindirizza l'utente alla pagina di inserimento
+                window.location.href = 'allPayment.html';
+            }
+        </script>
+
+        <button class="cta" onclick="to_statistics()">
+            <span>Statistics</span>
+            <svg width="15px" height="10px" viewBox="0 0 13 10">
+              <path d="M1,5 L11,5"></path>
+              <polyline points="8 1 12 5 8 9"></polyline>
+            </svg>
+          </button>
+        <script>
+            function to_statistics() {
+                window.location.href = 'statisticsPayment.html';
+            }
+        </script>
+
+        <button class="cta" onclick="to_map()">
+            <span>Maps</span>
+            <svg width="15px" height="10px" viewBox="0 0 13 10">
+              <path d="M1,5 L11,5"></path>
+              <polyline points="8 1 12 5 8 9"></polyline>
+            </svg>
+          </button>
+        <script>
+            function to_map() {
+                window.location.href = 'mappa.html';
+            }
+        </script>
+
+        <button class="cta" onclick="to_monthly()">
+            <span>Monthly payment</span>
+            <svg width="15px" height="10px" viewBox="0 0 13 10">
+              <path d="M1,5 L11,5"></path>
+              <polyline points="8 1 12 5 8 9"></polyline>
+            </svg>
+          </button>
+        <script>
+            function to_monthly() {
+                window.location.href = 'monthPayment.html';
+            }
+        </script>
 
        
     </main>
@@ -94,18 +143,80 @@
         <canvas id="myPieChart" width="200px" ></canvas>
     </div>
 
-    <footer style="position: fixed; bottom: 0; left: 0; width: 100%; background-color: rgb(111, 218, 125); padding: 10px; text-align: center;">
-        <!-- Barra di navigazione in basso -->
-        <a href="#">Home</a> |
-        <a href="#">Latest payment</a> |
-        <a href="#">Contact</a>
-    </footer>
+
+    <button class="cta" onclick="latest3payment(3)" style=" margin-top: 10px; margin-bottom:30px">
+        <span>View latest Payment</span>
+        <svg width="15px" height="10px" viewBox="0 0 13 10">
+          <path d="M1,5 L11,5"></path>
+          <polyline points="8 1 12 5 8 9"></polyline>
+        </svg>
+      </button>
+
+      <button class="cta" onclick="printGeolocation()" style="margin-top: 10px; margin-bottom: 30px;">
+        <span>Print Geolocation</span>
+    </button>
+
+    <script>
+        function printGeolocation() {
+            navigator.geolocation.getCurrentPosition(
+                function (position) {
+                    var latitudine = position.coords.latitude;
+                    var longitudine = position.coords.longitude;
+                    
+                    // Print the latitude and longitude
+                    console.log("Latitude: " + latitudine + ", Longitude: " + longitudine);
+        
+                    // You can also display the values on the UI if needed
+                    alert("Latitude: " + latitudine + "\nLongitude: " + longitudine);
+                },
+                function (error) {
+                    console.error('Error getting geolocation:', error.message);
+                    alert('Error getting geolocation. Please check your settings.');
+                }
+            );
+        }
+    </script>
+   
+        
+        <table id="ltpayment" style="margin-bottom: 50px;">
+            <thead>
+                <tr>
+                    <th>Amount</th>
+                    <th>Category</th>
+                    <th>Date</th>
+                    <th>Comment</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+               
+            </tbody>
+        </table>
+        
+    
+
+
+
+
+
+   
     
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             initDatabase();
+           
         });
+        
     </script>
+
+
+
 </body>
+<footer style="margin-top:20px; position: fixed; bottom: 0; left: 0; width: 100%; background-color: rgb(111, 218, 125); padding: 10px; text-align: center;">
+    <!-- Barra di navigazione in basso -->
+    <a href="#">Home</a> |
+    <a href="allPayment.html">Latest payment</a> |
+    <a href="#">Contact</a>
+</footer>
 </html>
